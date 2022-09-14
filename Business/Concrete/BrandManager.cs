@@ -1,4 +1,8 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFrameWork;
 using Entities.Concrete;
@@ -22,34 +26,37 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        public void Add(Brand brand)
+        [ValidationAspect(typeof(BrandValidator))]
+        public IResult Add(Brand brand)
         {
             if (brand.BrandName.Length>2)
             {
 
-                _brandDal.Add(brand);
-                Console.WriteLine("EKLENDİ");
+                return new SuccessResult(Messages.BrandAdded);
+                
             }
             else
             {
-                Console.WriteLine("Marka Bulunamadı");
+                return new ErrorResult(Messages.BrandNameInvalid);
             }
 
         }
 
-        public void Delete(Brand brand)
+        public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
+            return new SuccessResult(Messages.Deleted);
         }
 
-        public List<Brand> GetCarsByBrandId(int Id)
+        public IDataResult<List<Brand>> GetCarsByBrandId(int Id)
         {
-            return _brandDal.GetAll(b=>b.Id == Id);
+            return new SuccessDataResult<List<Brand>> (_brandDal.GetAll(b=>b.Id == Id));
         }
 
-        public void Update(Brand brand)
+        public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);
+            return new SuccessResult(Messages.Updated);
 
 
         }

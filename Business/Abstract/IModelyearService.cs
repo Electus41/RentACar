@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Utilities.Results;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace Business.Abstract
 {
     public interface IModelyearService
     {
-        void Add(ModelYear modelYear);
-        void Update(ModelYear modelYear);
-        void Delete(ModelYear modelYear);
+        IResult Add(ModelYear modelYear);
+        IResult Update(ModelYear modelYear);
+        IResult Delete(ModelYear modelYear);
 
-        List<ModelYear> GetAll();
+        IDataResult<List<ModelYear>> GetAll();
         
     }
 }

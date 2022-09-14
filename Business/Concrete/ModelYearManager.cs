@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -16,37 +19,38 @@ namespace Business.Concrete
         public ModelYearManager (IModelYearDal modelYearDal)
         {
             _modelYearDal = modelYearDal;
-        }       
-            
+        }
 
-        public void Add(ModelYear modelYear)
+        [ValidationAspect(typeof(ModelYearValidator))]
+        public IResult Add(ModelYear modelYear)
         {
             if (modelYear.ModelYearName>2015)
             {
-                _modelYearDal.Add(modelYear);
+                return new SuccessResult();
             }
             else
             {
-                Console.WriteLine("Düşük Model");
+                return new ErrorResult();
             }
         }
 
-        public void Delete(ModelYear modelYear)
+        public IResult Delete(ModelYear modelYear)
         {
             _modelYearDal.Delete(modelYear);
+            return new SuccessResult();
         }
 
         
 
-        public List<ModelYear> GetAll()
+        public IDataResult<List<ModelYear>> GetAll()
         {
-            var result = _modelYearDal.GetAll();
-            return result;
+            return new SuccessDataResult<List<ModelYear>>(_modelYearDal.GetAll());
         }
 
-        public void Update(ModelYear modelYear)
+        public IResult Update(ModelYear modelYear)
         {
             _modelYearDal.Update(modelYear);
+            return new SuccessResult();
         }
     }
 }

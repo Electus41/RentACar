@@ -1,5 +1,6 @@
 ﻿
 using Core.Entities;
+using Core.Utilities.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace Core.DataAccess
         void Delete(T entity);
         void Update(T entity);
 
-        List<T> GetCarsByDailPrice(decimal min, decimal max);
+        List<T>GetCarsByDailPrice(decimal min, decimal max);
         List<T> GetCarsByBrandId(int BrandId);
 
 
