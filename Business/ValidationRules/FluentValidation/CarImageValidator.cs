@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Concrete
+namespace Business.ValidationRules.FluentValidation
 {
-    internal class EfRentalDal
+    public class CarImageValidator
     {
+
     }
 }
