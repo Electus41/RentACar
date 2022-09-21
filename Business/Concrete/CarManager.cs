@@ -30,9 +30,9 @@ namespace Business.Concrete
         {
             _carDal.Add(car);
 
-            if (car.CarName.Length < 2)
+            if (car.Description.Length < 2)
             {
-                return new ErrorResult(Messages.CarNameInvalid);
+                return new ErrorResult(Messages.DescriptionInvalid);
             }
            
             return new SuccessResult(Messages.CarAdded);

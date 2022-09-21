@@ -1,9 +1,6 @@
 ﻿
 
-
-
 using Business.Concrete;
-using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFrameWork;
 
 CarManager carManager = new CarManager(new EFCarDal());
@@ -14,7 +11,7 @@ if (result.Success == true)
 {
     foreach (var car in result.Data)
     {
-        Console.WriteLine(car.CarName + "/" + car.Description);
+        Console.WriteLine(car.Id + "/" + car.Description);
     }
 }
 else
